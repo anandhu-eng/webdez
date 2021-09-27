@@ -1,0 +1,25 @@
+__pycache__/
+
+*.py[cod]
+
+# Virtual Envs
+venv
+.venv
+
+# VS Code
+.vscode/
+
+# Sublime
+*.sublime*
+
+# Idea
+.idea/
+
+# Packages
+dist/
+build/
+*.egg
+*.egg-info
+
+# Pytest
+.pytest_cache/
