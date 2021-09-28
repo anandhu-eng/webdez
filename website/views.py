@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from flask_login import login_required, current_user
 from .models import Post, User, Comment, Like
-from . import db
+from . import db, admin_permission
 
 views = Blueprint("views", __name__)
 
@@ -19,6 +19,10 @@ def home(page=1):
 @views.route("/create-post", methods=['GET', 'POST'])
 @login_required
 def create_post():
+    if not admin_permission.can():
+        flash("You need to be an admin to add posts", category='error')
+        return redirect(url_for('views.home'))
+
     if request.method == "POST":
         text = request.form.get('text')
 
