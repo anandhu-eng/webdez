@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app, session
 from . import db
 from .models import User
 from flask_login import login_user, logout_user, login_required, current_user
+from flask_principal import identity_changed, Identity, AnonymousIdentity
 from werkzeug.security import generate_password_hash, check_password_hash
 
 auth = Blueprint("auth", __name__)
@@ -18,6 +19,12 @@ def login():
             if check_password_hash(user.password, password):
                 flash("Logged in!", category='success')
                 login_user(user, remember=True)
+                # setup permissions for this user
+                identity_changed.send(
+                    current_app._get_current_object(),
+                    identity=Identity(user.id)
+                )
+
                 return redirect(url_for('views.home'))
             else:
                 flash('Password is incorrect.', category='error')
@@ -66,4 +73,13 @@ def sign_up():
 @login_required
 def logout():
     logout_user()
+
+    for key in ('identity.name', 'identity.auth_type'):
+        session.pop(key, None)
+
+    identity_changed.send(
+        current_app._get_current_object(),
+        identity=AnonymousIdentity()
+    )
+
     return redirect(url_for("views.home"))

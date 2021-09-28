@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
+from flask_principal import Principal, Permission, RoleNeed, identity_loaded, UserNeed
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -31,6 +32,19 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
 
+    Principal(app)
+
+    @identity_loaded.connect_via(app)
+    def on_identity_loaded(sender, identity):
+        # Set the identity user object
+        identity.user = current_user
+
+        if hasattr(current_user, 'id'):
+            identity.provides.add(UserNeed(current_user.id))
+
+        if getattr(current_user, 'is_admin', False):
+            identity.provides.add(RoleNeed('admin'))
+
     return app
 
 
@@ -38,3 +52,5 @@ def create_database(app):
     if not path.exists("website/" + DB_NAME):
         db.create_all(app=app)
         print("Created database!")
+
+admin_permission = Permission(RoleNeed('admin'))
