@@ -250,12 +250,61 @@
                                     </ul>
                                 </div>
                                 <div  class="comment-space">
-                                <input type=text class="comment-text"><button><img src="..\static\assets\images\send-button.svg" class="send-button"></button>
+                                <form
+                                class="input-group mb-3"
+                                method="POST"
+                                action="/create-comment/{{post.id}}"
+                                >                                    
+                                <input type=text id="text" name="text" class="form-control" placeholder="Comment something!"><button type="submit" class="btn btn-primary"><img src="..\static\assets\images\send-button.svg" class="send-button"></button>
+                                </form>
                                 </div>
-                                <p><u>View all comments</u></p>
-                                <div class="all-comments">
-                                    <p><bold>Alwin </bold>Nice, Good Team work</p>
+                                <div class="collapse" id="comments-{{post.id}}">
+                                    <div class="card">
+                                        <div class="card-body" id="comments-expanded-{{post.id}}">
+                                            {% for comment in post.comments %}
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <a 
+                                                    >{{comment.user.username}}</a
+                                                    >: {{comment.text}}
+                                                </div>
+                                                <div>
+                                                    <small class="text-muted"> {{comment.date_created}}</small>
+                                                    {% if user.id == comment.author or user.id == post.author %}
+                                                    <div class="btn-group">
+                                                        <button
+                                                        type="button"
+                                                        class="btn btn-sm btn-primary dropdown-toggle"
+                                                        data-bs-toggle="dropdown"
+                                                        ></button>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a
+                                                                href="/delete-comment/{{comment.id}}"
+                                                                class="dropdown-item"
+                                                                >Delete</a
+                                                                >
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
                                 </div>
+                                <p class="card-text">
+                                    {% if post.comments|length > 0 %}
+                                    <a data-bs-toggle="collapse" href="#comments-{{post.id}}" role="button">
+                                        <small>View {{post.comments|length}} Comments</small>
+                                    </a>
+                                    {% else %}
+                                    <small class="text-muted">No Comments</small>
+                                    {% endif %}
+                                </p>
+
+
                             </div>
                         </div>
                         {% endfor %}
