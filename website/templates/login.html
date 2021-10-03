@@ -1,28 +1,36 @@
-{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
-%}
-<form method="POST">
-  <h3 align="center">Login</h3>
-  <div class="form-group">
-    <label for="email">Email Address</label>
-    <input
-      type="text"
-      id="email"
-      name="email"
-      class="form-control"
-      placeholder="Enter Email"
-    />
-    <label for="password">Password</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      class="form-control"
-      placeholder="Enter Password"
-    />
-    <br />
-    <div align="center">
-      <button class="btn btn-primary" type="submit">Login</button>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webdez</title>
+    <link rel="stylesheet" href="../static/assets/css/style2.css" />
+  </head>
+  <body>
+    <div class="body">
+      <form method="POST">
+        <div class="leftside">
+          <div class="leftcontents">
+            <h4 class='heading'>Login</h4>
+            <div>
+              <h6>Email</h6>
+              <input type="text" class="inputbox" name="email"/>
+            </div>
+            <div>
+              <h6>Password</h6>
+              <input type="password" class="inputbox" name="password" style="margin-bottom: 39px;"/>
+            </div>
+           <button class="login-button" type="submit">Log in</button>
+          </div>
+        </div>
+      </form>
+      <div class="rightside">
+        <div class='imga'>
+          <img src="../static/assets/images/Logo-vertical.svg" class="logo">
+        <!--<img src="images/texturebg1.svg" class="image" />-->
+        </div>
+      </div>
     </div>
-  </div>
-</form>
-{% endblock %}
+  </body>
+</html>
