@@ -122,3 +122,34 @@ def like(post_id):
         db.session.commit()
 
     return jsonify({"likes": len(post.likes), "liked": current_user.id in map(lambda x: x.author, post.likes)})
+
+@views.route("/profile")
+def profile(page=1):
+    if(current_user.username=="admin"):
+        
+        per_page = 100
+        posts = Post.query.paginate(page,per_page,error_out=False)
+        return render_template('profile_admin.html', user=current_user,posts=posts)
+    else:
+        return render_template('profile_user.html')
+
+@views.route("/profile", methods=['GET', 'POST'])
+@login_required
+def create_post_adminpage():
+    if not admin_permission.can():
+        flash("You need to be an admin to add posts", category='error')
+        return redirect(url_for('views.profile'))
+
+    if request.method == "POST":
+        text = request.form.get('text')
+
+        if not text:
+            flash('Post cannot be empty', category='error')
+        else:
+            post = Post(text=text, author=current_user.id)
+            db.session.add(post)
+            db.session.commit()
+            flash('Post created!', category='success')
+            return redirect(url_for('views.profile'))
+
+    return render_template('profile_admin.html', user=current_user)

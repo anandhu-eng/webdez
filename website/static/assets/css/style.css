@@ -3556,5 +3556,36 @@ only screen and (max-width: 767.98px) {
 .mob-btn {
     width: 50px;
 }
+.comment-space {
+    width:100%;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+    display:flex;
+    
+}
+.comment-space:active {
+    border-color:#1E0CF3;
+}
 
+.comment-text {
+    border:0px;
+    width:100%;
+
+}
+
+.send-button {
+    width:20px;
+    opacity:0.5;
+}
+
+.comments p {
+    display:block;
+    margin-top:10px;
+}
+
+.comments p:hover {
+    color:#1E0CF3;
+}
 /*------- mobile footer area end -------*/
