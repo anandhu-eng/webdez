@@ -9,20 +9,22 @@
   </head>
   <body>
     <div class="body">
-      <div class="leftside">
-        <div class="leftcontents">
-          <h4 class='heading'>Login</h4>
-          <div>
-            <h6>Username</h6>
-            <input type="text" class="inputbox" />
+      <form method="POST">
+        <div class="leftside">
+          <div class="leftcontents">
+            <h4 class='heading'>Login</h4>
+            <div>
+              <h6>Email</h6>
+              <input type="text" class="inputbox" name="email"/>
+            </div>
+            <div>
+              <h6>Password</h6>
+              <input type="password" class="inputbox" name="password" style="margin-bottom: 39px;"/>
+            </div>
+           <button class="login-button" type="submit">Log in</button>
           </div>
-          <div>
-            <h6>Password</h6>
-            <input type="password" class="inputbox"  style="margin-bottom: 39px;"/>
-          </div>
-         <button class="login-button">Log in</button>
         </div>
-      </div>
+      </form>
       <div class="rightside">
         <div class='imga'>
           <img src="../static/assets/images/Logo-vertical.svg" class="logo">
