@@ -192,11 +192,11 @@
                                     <span></span>
                                     <span></span>
                                     <span></span>
-                                    {% if user.id == post.author %}
+                                    {% if current_user.username == 'admin' %}
                                     <div class="post-settings arrow-shape">
                                         <ul>
                                             
-                                            <li><a href="/delete-post/{{post.id}}" class="dropdown-item">delete post</a></li>
+                                            <a href="/delete-post/{{post.id}}" class="dropdown-item">delete post</a>
                                             
                                         </ul>
                                     </div>
