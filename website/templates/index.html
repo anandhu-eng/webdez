@@ -48,7 +48,7 @@
                         <div class="header-top-navigation">
                             <nav>
                                 <ul>
-                                    <li class="active"><a href="index.html">home</a></li>
+                                    <li class="active"><a href="/home">Home</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -80,18 +80,18 @@
                                     </a>
                                     <div class="profile-dropdown">
                                         <div class="profile-head">
-                                            <h5 class="name"><a href="#">Madison Howard</a></h5>
-                                            <a class="mail" href="#">mailnam@mail.com</a>
+                                            
+                                            <h5 class="name"><a href="#">{{current_user.username}}</a></h5>
+                                            
+                                            <a class="mail" href="#">{{current_user.email}}</a>
                                         </div>
                                         <div class="profile-body">
                                             <ul>
                                                 <li><a href="profile.html"><i class="flaticon-user"></i>Profile</a></li>
-                                                <li><a href="#"><i class="flaticon-message"></i>Inbox</a></li>
-                                                <li><a href="#"><i class="flaticon-document"></i>Activity</a></li>
+                                                
                                             </ul>
                                             <ul>
-                                                <li><a href="#"><i class="flaticon-settings"></i>Setting</a></li>
-                                                <li><a href="signup.html"><i class="flaticon-unlock"></i>Sing out</a></li>
+                                                <li><a href="/logout"><i class="flaticon-unlock"></i>Logout</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -151,13 +151,15 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
+                                            <form method="POST">
                                             <div class="modal-body custom-scroll">
-                                                <textarea name="share" class="share-field-big custom-scroll" placeholder="Say Something"></textarea>
+                                                <textarea name="text" id="text" class="share-field-big custom-scroll" placeholder="Say Something"></textarea>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="post-share-btn" data-bs-dismiss="modal">cancel</button>
-                                                <button type="button" class="post-share-btn">post</button>
+                                                </a><button type="submit" class="post-share-btn">post</button>
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -167,6 +169,7 @@
                         <!-- share box end -->
 
                         <!-- post status start -->
+                        {% for post in posts.items| sort(attribute='date_created',reverse=true) %}
                         <div class="card">
                             <!-- post title start -->
                             <div class="post-title d-flex align-items-center">
@@ -181,29 +184,29 @@
                                 <!-- profile picture end -->
 
                                 <div class="posted-author">
-                                    <h6 class="author"><a href="profile.html">merry watson</a></h6>
-                                    <span class="post-time">20 min ago</span>
+                                    <h6 class="author"><a href="profile.html">{{post.user.username}}</a></h6>
+                                    <span class="post-time">{{post.date_created}}</span>
                                 </div>
 
                                 <div class="post-settings-bar">
                                     <span></span>
                                     <span></span>
                                     <span></span>
+                                    {% if user.id == post.author %}
                                     <div class="post-settings arrow-shape">
                                         <ul>
-                                            <li><button>copy link to adda</button></li>
-                                            <li><button>edit post</button></li>
-                                            <li><button>embed adda</button></li>
+                                            
+                                            <li><button href="/delete-post/{{post.id}}">delete post</button></li>
+                                            
                                         </ul>
                                     </div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <!-- post title start -->
                             <div class="post-content">
                                 <p class="post-desc">
-                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                                    default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                                    in their infancy.
+                                    {{post.text}}
                                 </p>
                                 <div class="post-thumb-gallery">
                                     <figure class="post-thumb img-popup">
@@ -214,9 +217,22 @@
                                 </div>
                                 <div class="post-meta">
                                     <button class="post-meta-like">
-                                        <i class="bi bi-heart-beat"></i>
-                                        <span>You and 201 people like this</span>
-                                        <strong>201</strong>
+                                        <!--<i class="bi bi-heart-beat"></i>-->
+                                        <span id="likes-count-{{post.id}}">{{ post.likes|length }}</span>
+                                        {% if user.id in post.likes|map(attribute="author")|list %}
+                                        <i
+                                          class="fas fa-thumbs-up"
+                                          id="like-button-{{post.id}}"
+                                          onclick="like({{post.id}})"
+                                        ></i>
+                                        {% else %}
+                                        <i
+                                        class="far fa-thumbs-up"
+                                          id="like-button-{{post.id}}"
+                                          onclick="like({{post.id}})"
+                                        ></i>
+                                        {% endif %}
+                                       <!-- <strong>201</strong>-->
                                     </button>
                                     <ul class="comment-share-meta">
                                         <li>
@@ -235,6 +251,9 @@
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
+                        
+                  
                         <!-- post status end -->
 
                     </div>
@@ -320,6 +339,19 @@
     <script src="../static/assets/js/plugins/isotope.pkgd.min.js"></script>
     <!-- Main JS -->
     <script src="../static/assets/js/main.js"></script>
+    <script
+    type="text/javascript"
+    src="{{ url_for('static', filename='index.js')}}"
+  ></script>
+  <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/999ca2bb93.js"
+      crossorigin="anonymous"
+    ></script>
 
 </body>
 

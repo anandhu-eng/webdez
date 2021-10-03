@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, session
 from flask_login import login_required, current_user
 from .models import Post, User, Comment, Like
 from . import db, admin_permission
@@ -11,12 +11,12 @@ views = Blueprint("views", __name__)
 @views.route("/home")
 @login_required
 def home(page=1):
-    per_page = 10
+    per_page = 100
     posts = Post.query.paginate(page,per_page,error_out=False)
     return render_template("home.html", user=current_user, posts=posts)
 
 
-@views.route("/create-post", methods=['GET', 'POST'])
+@views.route("/home", methods=['GET', 'POST'])
 @login_required
 def create_post():
     if not admin_permission.can():
@@ -35,7 +35,7 @@ def create_post():
             flash('Post created!', category='success')
             return redirect(url_for('views.home'))
 
-    return render_template('create_post.html', user=current_user)
+    return render_template('index.html', user=current_user)
 
 
 @views.route("/delete-post/<id>")
