@@ -76,15 +76,17 @@
                                 <div class="profile-thumb-small">
                                     <a href="javascript:void(0)" class="profile-triger">
                                         <figure>
-                                            <img src="../static/assets/images/profile/profile-35x35-1.jpg" alt="profile picture">
+                                           
+                                            <img src="../static/assets/images/profile/User-Boy 35-35.png" alt="profile picture">
+                                            
                                         </figure>
                                     </a>
                                     <div class="profile-dropdown">
                                         <div class="profile-head">
                                             
-                                            <h5 class="name"><a href="#">{{current_user.username}}</a></h5>
+                                            <h5 class="name"><a>{{current_user.username}}</a></h5>
                                             
-                                            <a class="mail" href="#">{{current_user.email}}</a>
+                                            <a class="mail">{{current_user.email}}</a>
                                         </div>
                                         <div class="profile-body">
                                             <ul>
@@ -125,7 +127,7 @@
                             <div class="share-box-inner">
                                 <!-- profile picture end -->
                                 <div class="profile-thumb">
-                                    <a href="#">
+                                    <a>
                                         <figure class="profile-thumb-middle">
                                             <img src="../static/assets/images/profile/profile-small-37.jpg" alt="profile picture">
                                         </figure>
@@ -137,7 +139,7 @@
                                 <div class="share-content-box w-100">
                                     <form class="share-text-box">
                                         <textarea name="share" class="share-text-field" aria-disabled="true" placeholder="Say Something" data-bs-toggle="modal" data-bs-target="#textbox" id="email"></textarea>
-                                        <button class="btn-share" type="submit">share</button>
+                                        <button class="btn-share" type="button">share</button>
                                     </form>
                                 </div>
                                 <!-- share content box end -->
@@ -178,16 +180,16 @@
                             <div class="post-title d-flex align-items-center">
                                 <!-- profile picture end -->
                                 <div class="profile-thumb">
-                                    <a href="#">
+                                    <a>
                                         <figure class="profile-thumb-middle">
-                                            <img src="../static/assets/images/profile/profile-small-1.jpg" alt="profile picture">
+                                            <img src="../static/assets/images/profile/User-Boy 35-35.png" alt="profile picture">
                                         </figure>
                                     </a>
                                 </div>
                                 <!-- profile picture end -->
 
                                 <div class="posted-author">
-                                    <h6 class="author"><a href="profile.html">{{post.user.username}}</a></h6>
+                                    <h6 class="author"><a href="/profile">{{post.user.username}}</a></h6>
                                     <span class="post-time">{{post.date_created}}</span>
                                 </div>
 
@@ -248,21 +250,7 @@
                                         ></i>
                                         {% endif %}
                                        <!-- <strong>201</strong>-->
-                                    </button>
-                                    <ul class="comment-share-meta">
-                                        <li>
-                                            <button class="post-comment">
-                                                <i class="bi bi-chat-bubble"></i>
-                                                <span>41</span>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="post-share">
-                                                <i class="bi bi-share"></i>
-                                                <span>07</span>
-                                            </button>
-                                        </li>
-                                    </ul>
+                                    
                                 </div>
                                 <div  class="comment-space">
                                 <form
@@ -331,16 +319,16 @@
                             <div class="post-title d-flex align-items-center">
                                 <!-- profile picture end -->
                                 <div class="profile-thumb">
-                                    <a href="#">
+                                    <a >
                                         <figure class="profile-thumb-middle">
-                                            <img src="../static/assets/images/profile/profile-small-1.jpg" alt="profile picture">
+                                            <img src="../static/assets/images/profile/User-Boy 35-35.png" alt="profile picture">
                                         </figure>
                                     </a>
                                 </div>
                                 <!-- profile picture end -->
 
                                 <div class="posted-author">
-                                    <h6 class="author"><a href="profile.html">{{post.user.username}}</a></h6>
+                                    <h6 class="author"><a href="/profile">{{post.user.username}}</a></h6>
                                     <span class="post-time">{{post.date_created}}</span>
                                 </div>
 
@@ -402,20 +390,7 @@
                                         {% endif %}
                                        <!-- <strong>201</strong>-->
                                     </button>
-                                    <ul class="comment-share-meta">
-                                        <li>
-                                            <button class="post-comment">
-                                                <i class="bi bi-chat-bubble"></i>
-                                                <span>41</span>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="post-share">
-                                                <i class="bi bi-share"></i>
-                                                <span>07</span>
-                                            </button>
-                                        </li>
-                                    </ul>
+                                    
                                 </div>
                                 <div  class="comment-space">
                                 <form
