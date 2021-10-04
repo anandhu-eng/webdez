@@ -6,7 +6,7 @@
 
 Tusker is a sample Internet project where users can view and rate various kinds of content. Administrators submit content to the site such as links, text posts, images, and videos, which are then voted up or down and commented by other members. Content can be filtered based on the preferences of the user.
 
-![Tusker](https://github.com/anandhu-eng/Todo_app/blob/main/static/wwebdez/Screenshot%20from%202021-10-05%2001-10-14.png)
+![Tusker]("https://i.postimg.cc/HsgPQYzS/Screenshot-from-2021-10-05-01-10-14.png")
 
 ## Key Features:-
 1.Admins have full control of the project i.e Posting, Deleting, Reacting and Monitoring the posts.
