@@ -15,7 +15,7 @@ views = Blueprint("views", __name__)
 def home(page=1):
     per_page = 100
     posts = Post.query.paginate(page,per_page,error_out=False)
-    return render_template("home.html", user=current_user, posts=posts)
+    return render_template("home.html", user=current_user, posts=posts, flag=0)
 
 
 @login_required
@@ -31,8 +31,7 @@ def download_file(name):
 def search_by_tags():
     tagname = request.form.get("tagname")
     posts = Post.query.filter(Post.text.contains(f"{tagname}")).all()
-    # posts = Post.query.all()
-    return render_template("home.html", user=current_user, posts=posts)
+    return render_template("home.html", user=current_user, posts=posts, flag=1)
 
 
 @views.route("/home", methods=['GET', 'POST'])

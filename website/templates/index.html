@@ -171,6 +171,160 @@
                         <!-- share box end -->
 
                         <!-- post status start -->
+                        {% if flag==1 %}
+                        {% for post in posts | sort(attribute='date_created',reverse=true) %}
+                        <div class="card">
+                            <!-- post title start -->
+                            <div class="post-title d-flex align-items-center">
+                                <!-- profile picture end -->
+                                <div class="profile-thumb">
+                                    <a href="#">
+                                        <figure class="profile-thumb-middle">
+                                            <img src="../static/assets/images/profile/profile-small-1.jpg" alt="profile picture">
+                                        </figure>
+                                    </a>
+                                </div>
+                                <!-- profile picture end -->
+
+                                <div class="posted-author">
+                                    <h6 class="author"><a href="profile.html">{{post.user.username}}</a></h6>
+                                    <span class="post-time">{{post.date_created}}</span>
+                                </div>
+
+                                <div class="post-settings-bar">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    {% if current_user.username == 'admin' %}
+                                    <div class="post-settings arrow-shape">
+                                        <ul>
+                                            
+                                            <a href="/delete-post/{{post.id}}" class="dropdown-item">delete post</a>
+                                            
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- post title start -->
+                            <div class="post-content">
+                                <p class="post-desc">
+                                    {{post.text}}
+                                </p>
+                                {% if post.filename is not none() %}
+                                    <div class="post-thumb-gallery">
+                                        <figure class="post-thumb img-popup">
+
+                                            {% set image_file = "../uploads/" ~ post.filename %}
+                                            {% if image_file[-1:-4:-1] == '4pm' %}
+                                            <video width="480" height="270" controls>
+                                                <source src="{{image_file}}" type="video/mp4">
+                                            </video>
+                                            
+                                            {% else %}
+                                            <a href="{{image_file}}">
+                                            <img src="{{image_file}}" alt="post image">
+                                            </a>
+                                            {% endif %}
+
+                                        </figure>
+                                    </div>
+                                {% endif %}
+                                <div class="post-meta">
+                                    <button class="post-meta-like">
+                                        <!--<i class="bi bi-heart-beat"></i>-->
+                                        <span id="likes-count-{{post.id}}">{{ post.likes|length }}</span>
+                                        {% if user.id in post.likes|map(attribute="author")|list %}
+                                        <i
+                                          class="fas fa-thumbs-up"
+                                          id="like-button-{{post.id}}"
+                                          onclick="like({{post.id}})"
+                                        ></i>
+                                        {% else %}
+                                        <i
+                                        class="far fa-thumbs-up"
+                                          id="like-button-{{post.id}}"
+                                          onclick="like({{post.id}})"
+                                        ></i>
+                                        {% endif %}
+                                       <!-- <strong>201</strong>-->
+                                    </button>
+                                    <ul class="comment-share-meta">
+                                        <li>
+                                            <button class="post-comment">
+                                                <i class="bi bi-chat-bubble"></i>
+                                                <span>41</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="post-share">
+                                                <i class="bi bi-share"></i>
+                                                <span>07</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div  class="comment-space">
+                                <form
+                                class="input-group mb-3"
+                                method="POST"
+                                action="/create-comment/{{post.id}}"
+                                >                                    
+                                <input type=text id="text" name="text" class="form-control" placeholder="Comment something!"><button type="submit" class="btn btn-primary"><img src="..\static\assets\images\send-button.svg" class="send-button"></button>
+                                </form>
+                                </div>
+                                <div class="collapse" id="comments-{{post.id}}">
+                                    <div class="card">
+                                        <div class="card-body" id="comments-expanded-{{post.id}}">
+                                            {% for comment in post.comments %}
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <a 
+                                                    >{{comment.user.username}}</a
+                                                    >: {{comment.text}}
+                                                </div>
+                                                <div>
+                                                    <small class="text-muted"> {{comment.date_created}}</small>
+                                                    {% if user.id == comment.author or user.id == post.author %}
+                                                    <div class="btn-group">
+                                                        <button
+                                                        type="button"
+                                                        class="btn btn-sm btn-primary dropdown-toggle"
+                                                        data-bs-toggle="dropdown"
+                                                        ></button>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a
+                                                                href="/delete-comment/{{comment.id}}"
+                                                                class="dropdown-item"
+                                                                >Delete</a
+                                                                >
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="card-text">
+                                    {% if post.comments|length > 0 %}
+                                    <a data-bs-toggle="collapse" href="#comments-{{post.id}}" role="button">
+                                        <small>View {{post.comments|length}} Comments</small>
+                                    </a>
+                                    {% else %}
+                                    <small class="text-muted">No Comments</small>
+                                    {% endif %}
+                                </p>
+                                
+
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
                         {% for post in posts.items| sort(attribute='date_created',reverse=true) %}
                         <div class="card">
                             <!-- post title start -->
@@ -317,12 +471,13 @@
                                     <small class="text-muted">No Comments</small>
                                     {% endif %}
                                 </p>
+                                
 
 
                             </div>
                         </div>
                         {% endfor %}
-                        
+                        {% endif %}
                   
                         <!-- post status end -->
 
@@ -336,7 +491,7 @@
                                 <div class="widget-body">
                                     <form method="POST" class="share-text-box" action="/home/tag">
                                         <input name="tagname" type="text" placeholder="Search" class="share-text-field">
-                                        <button class="btn-share" >🔍</button>
+                                        <button class="btn-share" type="submit">🔍</button>
                                     </form>
                                 </div>
                             </div>
