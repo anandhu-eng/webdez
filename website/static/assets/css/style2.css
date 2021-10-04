@@ -92,7 +92,7 @@ input {
 .imga {
     height:100%;
     width: 100%;
-    background:url(images/texturebg1.svg);
+    background:url(../images/texturebg1.svg);
     display: flex;
     justify-content: center;
     align-items: center;
