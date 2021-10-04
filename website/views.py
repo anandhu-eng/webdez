@@ -179,4 +179,4 @@ def create_post_adminpage():
 @views.route("/friends", methods=['GET', 'POST'])
 @login_required
 def friends():
-    return render_template('friends.html')
+    return render_template('friends.html',user=current_user)
