@@ -191,4 +191,4 @@ def friends():
 
 @views.route("/about")
 def about():
-    return "this is about page"
+    return render_template('about.html')
