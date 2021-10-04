@@ -175,3 +175,8 @@ def create_post_adminpage():
             return redirect(url_for('views.profile'))
 
     return render_template('profile_admin.html', user=current_user)
+
+@views.route("/friends", methods=['GET', 'POST'])
+@login_required
+def friends():
+    return render_template('friends.html')
