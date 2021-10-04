@@ -215,9 +215,16 @@
                                         <figure class="post-thumb img-popup">
 
                                             {% set image_file = "../uploads/" ~ post.filename %}
+                                            {% if image_file[-1:-4:-1] == '4pm' %}
+                                            <video width="480" height="270" controls>
+                                                <source src="{{image_file}}" type="video/mp4">
+                                            </video>
+                                            
+                                            {% else %}
                                             <a href="{{image_file}}">
                                             <img src="{{image_file}}" alt="post image">
                                             </a>
+                                            {% endif %}
 
                                         </figure>
                                     </div>
