@@ -180,3 +180,7 @@ def create_post_adminpage():
 @login_required
 def friends():
     return render_template('friends.html',user=current_user)
+
+@views.route("/about")
+def about():
+    return "this is about page"
