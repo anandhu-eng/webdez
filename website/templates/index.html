@@ -334,41 +334,13 @@
                             <div class="card widget-item" style="position: fixed;">
                                 <h4 class="widget-title">Search By Tag</h4>
                                 <div class="widget-body">
-                                    <ul class="like-page-list-wrapper">
-                                        <li class="unorder-list">
-                                             <input type="text" placeholder="Search..">
-                                             <button>Search</button>
-                                        </li>
-                                        <li class="unorder-list">
-                                            <label class="">
-                                                <input type="checkbox" name="topic[]" value="AI">
-                                                Artifcial intelligence
-                                            </label>  
-                                        </li>
-                                        <li>
-                                            <label class="">
-                                                <input type="checkbox" name="topic[]" value="ML">
-                                                Machine learning
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="">
-                                                <input type="checkbox" name="topic[]" value="db">
-                                                Database
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="">
-                                                <input type="checkbox" name="topic[]" value="cp">
-                                                Competitive programming
-                                            </label>
-                                        </li>
-                                    </ul>
+                                    <form method="POST" class="share-text-box" action="/home/tag">
+                                        <input name="tagname" type="text" placeholder="Search" class="share-text-field">
+                                        <button class="btn-share" >🔍</button>
+                                    </form>
                                 </div>
                             </div>
                             <!-- widget single item end -->
-
-                            
                         </aside>
                     </div>
                 </div>

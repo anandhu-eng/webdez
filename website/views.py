@@ -26,6 +26,15 @@ def download_file(name):
     )
 
 
+@views.route("/home/tag", methods=['POST'])
+@login_required
+def search_by_tags():
+    tagname = request.form.get("tagname")
+    posts = Post.query.filter(Post.text.contains(f"{tagname}")).all()
+    # posts = Post.query.all()
+    return render_template("home.html", user=current_user, posts=posts)
+
+
 @views.route("/home", methods=['GET', 'POST'])
 @login_required
 def create_post():
