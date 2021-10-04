@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, session
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, current_app, send_from_directory
 from flask_login import login_required, current_user
 from .models import Post, User, Comment, Like
 from . import db, admin_permission
+
+from datetime import datetime
 
 views = Blueprint("views", __name__)
 
@@ -16,6 +18,14 @@ def home(page=1):
     return render_template("home.html", user=current_user, posts=posts)
 
 
+@login_required
+@views.route("/uploads/<path:name>")
+def download_file(name):
+    return send_from_directory(
+        current_app.config['UPLOAD_FOLDER'], name
+    )
+
+
 @views.route("/home", methods=['GET', 'POST'])
 @login_required
 def create_post():
@@ -25,11 +35,21 @@ def create_post():
 
     if request.method == "POST":
         text = request.form.get('text')
+        file = request.files.get("file")
+
+        if file.filename == '':
+            filename = None
+        else:
+            # hasher = hashlib.md5()
+            # hasher.update(file.stream.read())
+            filename = f"{datetime.utcnow()}_{file.filename}"
+            file.save(current_app.config['UPLOAD_FOLDER'].joinpath(filename))
 
         if not text:
             flash('Post cannot be empty', category='error')
+            return redirect(url_for('views.home'))
         else:
-            post = Post(text=text, author=current_user.id)
+            post = Post(text=text, author=current_user.id, filename=filename)
             db.session.add(post)
             db.session.commit()
             flash('Post created!', category='success')
