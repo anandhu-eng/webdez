@@ -23,4 +23,3 @@ build/
 
 # Pytest
 .pytest_cache/
-website/uploads/
