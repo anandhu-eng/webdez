@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import pathlib
 from os import path
 from flask_login import LoginManager, current_user
 from flask_principal import Principal, Permission, RoleNeed, identity_loaded, UserNeed
@@ -7,11 +8,13 @@ from flask_principal import Principal, Permission, RoleNeed, identity_loaded, Us
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
+UPLOAD_FOLDER = pathlib.Path(__file__).parent.joinpath("uploads")
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "helloworld"
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     db.init_app(app)
 
     from .views import views
@@ -25,6 +28,7 @@ def create_app():
     create_database(app)
 
     login_manager = LoginManager()
+
     login_manager.login_view = "auth.login"
     login_manager.init_app(app)
 

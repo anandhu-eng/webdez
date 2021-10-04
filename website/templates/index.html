@@ -151,11 +151,12 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form method="POST">
+                                            <form method="POST" enctype=multipart/form-data>
                                             <div class="modal-body custom-scroll">
                                                 <textarea name="text" id="text" class="share-field-big custom-scroll" placeholder="Say Something"></textarea>
                                             </div>
                                             <div class="modal-footer">
+                                                <input type=file class="post-share-btn" name="file">
                                                 <button type="button" class="post-share-btn" data-bs-dismiss="modal">cancel</button>
                                                 </a><button type="submit" class="post-share-btn">post</button>
                                             </div>
@@ -208,13 +209,18 @@
                                 <p class="post-desc">
                                     {{post.text}}
                                 </p>
-                                <div class="post-thumb-gallery">
-                                    <figure class="post-thumb img-popup">
-                                        <a href="../static/assets/images/post/post-1.jpg">
-                                            <img src="../static/assets/images/post/post-1.jpg" alt="post image">
-                                        </a>
-                                    </figure>
-                                </div>
+                                {% if post.filename is not none() %}
+                                    <div class="post-thumb-gallery">
+                                        <figure class="post-thumb img-popup">
+
+                                            {% set image_file = "../uploads/" ~ post.filename %}
+                                            <a href="{{image_file}}">
+                                            <img src="{{image_file}}" alt="post image">
+                                            </a>
+
+                                        </figure>
+                                    </div>
+                                {% endif %}
                                 <div class="post-meta">
                                     <button class="post-meta-like">
                                         <!--<i class="bi bi-heart-beat"></i>-->
