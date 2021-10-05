@@ -34,24 +34,5 @@ Tusker is a sample Internet project where users can view and rate various kinds 
 
 Now, the server starts to run and ctrl+click the link that starts with `https` in the terminal.
 
-## Credentials
-
-### For admin:
-
-Username/email: `anandhukicks@gmail.com`
-
-Password: `webdezadmin`
-
-### For user-1
-
-Username/email: `20cso11@sctce.ac.in`
-
-Password: `webdezuser1`
-
-### For user-2
-
-Username/email: `20cso10@sctce.ac.in`
-
-Password: `webdezuser2`
 
 ## Submitted by IEEE SCT SB
