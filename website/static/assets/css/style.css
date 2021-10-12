@@ -3590,20 +3590,13 @@ only screen and (max-width: 767.98px) {
     
 }
 .submission {
-    margin-top: 3%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     background-color: #1E0CF3;
+    line-height: 20px;
     height: 60px;
-    width:100vw;
-    position:absolute;
-    bottom:0px;
-}
-
-* {
-    overflow-x: hidden;
-    margin: 0px;
+    padding: 0 ;
 }
 /*------- mobile footer area end -------*/
