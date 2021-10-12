@@ -11,11 +11,14 @@ views = Blueprint("views", __name__)
 @views.route("/")
 @views.route(" '/home/view/<int:page>' ,methods=['GET']")
 @views.route("/home")
-@login_required
 def home(page=1):
     per_page = 100
     posts = Post.query.paginate(page,per_page,error_out=False)
-    return render_template("home.html", user=current_user, posts=posts, flag=0)
+    if current_user.is_authenticated:
+        template = "home.html"
+    else:
+        template = "home_logged_out.html"
+    return render_template(template, user=current_user, posts=posts, flag=0)
 
 
 @login_required
