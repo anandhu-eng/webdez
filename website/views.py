@@ -70,6 +70,7 @@ def create_post():
 @login_required
 def delete_post(id):
     post = Post.query.filter_by(id=id).first()
+    print(post)
 
     if not post:
         flash("Post does not exist.", category='error')
@@ -192,3 +193,10 @@ def friends():
 @views.route("/about")
 def about():
     return render_template('about.html')
+
+#routing to the page for non registered viewers
+@views.route("/home/viewers")
+def viewers(page=1):
+    per_page = 100
+    posts = Post.query.paginate(page,per_page,error_out=False)
+    return render_template("viewers.html", user=current_user, posts=posts, flag=0)
